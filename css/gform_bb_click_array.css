@@ -1,0 +1,99 @@
+.hide {
+    display: none !important;
+}
+
+/* Normally we display them 3 across */
+.gform_bb.gfield_click_array div.s-html-wrapper {
+    float: left;
+    width: 30%;
+    margin-right: 8px;
+    display: inline-block;
+    margin-bottom: 8px;
+    min-height: 85px;
+    border-radius: 10px;
+    border: medium none !important;
+    background-color: #f7a11a;
+}
+
+.gform_bb.gfield_click_array div.s-html-wrapper:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.gform_bb.gfield_click_array div.s-html-wrapper:nth-of-type(3n) {
+    margin-right: 0;
+}
+
+.gform_bb.gfield_click_array div.s-html-wrapper:nth-of-type(3n+1) {
+    clear: left;
+}
+
+/* But if there are only 2 or 4 options, let's show them 2 across */
+.gform_bb.gfield_click_array div.bb-click-array-2 div.s-html-wrapper, .gform_bb.gfield_click_array div.bb-click-array-4 div.s-html-wrapper {
+	width: 47%;
+}
+
+.gform_bb.gfield_click_array div.bb-click-array-2 div.s-html-wrapper:nth-of-type(3n), .gform_bb.gfield_click_array div.bb-click-array-4 div.s-html-wrapper:nth-of-type(3n) {
+    margin-right: 8px;
+}
+
+.gform_bb.gfield_click_array div.bb-click-array-2 div.s-html-wrapper:nth-of-type(3n+1), .gform_bb.gfield_click_array div.bb-click-array-4 div.s-html-wrapper:nth-of-type(3n+1) {
+    clear: none;
+}
+
+.gform_bb.gfield_click_array div.bb-click-array-2 div.s-html-wrapper:nth-of-type(2n), .gform_bb.gfield_click_array div.bb-click-array-4 div.s-html-wrapper:nth-of-type(2n) {
+    margin-right: 0;
+}
+
+.gform_bb.gfield_click_array div.bb-click-array-2 div.s-html-wrapper:nth-of-type(2n+1), .gform_bb.gfield_click_array div.bb-click-array-4 div.s-html-wrapper:nth-of-type(2n+1) {
+    clear: left;
+}
+
+/* Some default colours */
+.gform_bb.gfield_click_array div.s-html-wrapper.s-passive {
+    background-color: #fdecd1;
+    border-bottom: 3px solid #f7a11a !important;
+    border-radius: 10px;
+}
+
+.gform_bb.gfield_click_array div.s-html-wrapper.s-active {
+    background-color: #f7a11a;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.25) inset;
+}
+
+.gform_bb.gfield_click_array div.s-html-wrapper div.s-html-value {
+    color: black;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-top: 8px;
+    text-align: center;
+}
+
+.gform_bb.gfield_click_array div.s-html-wrapper.s-active div.s-html-value {
+    color: #fff;
+}
+
+.gform_bb.gfield_click_array div.s-html-wrapper label {
+    color: #141414;
+    font-size: 0.6rem;
+    font-style: italic;
+    padding: 1rem;
+    text-align: center;
+}
+
+.gform_bb.gfield_click_array label {
+    clear: left;
+    display: block;
+}
+
+/* max-width 640px, mobile-only styles */
+@media only screen and (max-width: 40em) {
+    .gform_bb.gfield_click_array div.s-html-wrapper {width: 47%;}
+    .gform_bb.gfield_click_array div.s-html-wrapper:nth-of-type(3n) {margin-right: 8px;}
+    .gform_bb.gfield_click_array div.s-html-wrapper:nth-of-type(3n+1) {clear: none;}
+    .gform_bb.gfield_click_array div.s-html-wrapper:nth-of-type(2n) {margin-right: 0;}   
+    .gform_bb.gfield_click_array div.s-html-wrapper:nth-of-type(2n+1) {clear: left;}
+    
+    .gform_bb.gfield_click_array div.s-html-wrapper label {display: none;}
+    .gform_bb.gfield_click_array div.s-html-wrapper div.s-html-value {margin-top: 30px;}
+}
