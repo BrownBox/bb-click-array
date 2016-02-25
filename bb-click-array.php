@@ -3,7 +3,7 @@
  * Plugin Name: BB Click Array
  * Plugin URI: http://brownbox.net.au/
  * Description: Kills radio buttons and drop-downs for good!
- * Version: 0.3
+ * Version: 0.3.1
  * Author: Brown Box
  * Author URI: http://brownbox.net.au/
  * License: Proprietary Brown Box
