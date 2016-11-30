@@ -61,14 +61,14 @@ function bb_click_array_field_input($input, $field, $value, $lead_id, $form_id) 
                 }
                 $field_class = $active ? 's-active' : 's-passive';
                 if (rgar($field, 'field_bb_click_array_is_product')) {
-                    require_once(GFCommon::get_base_path().'/currency.php');
-                    $currency = new RGCurrency(GFCommon::get_currency());
-                    $field_value = $currency->to_money($field_value);
+                    $field_value = GFCommon::to_money($field_value);
                     $field_class .= ' s-currency';
                 }
 
+                $value_style = empty($choice["text"]) ? ' style="margin-top: 1.5rem;"' : '';
+
                 $html .= sprintf('<div data-clickarray-value="%s" data-choice-id="%s" class="s-html-wrapper %s" id="%s">', esc_attr($field_value), $choice_id, $field_class, $id);
-                $html .= sprintf('<div class="s-html-value">%s</div>', $field_value);
+                $html .= sprintf('<div class="s-html-value"%s>%s</div>', $value_style, $field_value);
                 $html .= sprintf("<label for='choice_%s' id='label_%s'>%s</label>", $id, $id, $choice["text"]);
                 $html .= '</div>';
                 $choice_id++;
@@ -82,7 +82,7 @@ function bb_click_array_field_input($input, $field, $value, $lead_id, $form_id) 
 
             $html .= "<label for='input_{$field["formId"]}_{$field["id"]}_1' class='ginput_bb_click_array_other_label ".$other_class."'>".$other_label."</label>";
             $other_class .= rgar($field, 'field_bb_click_array_is_product') ? ' ginput_amount gfield_price gfield_price_'.$field['formId'].'_'.$field['id'].'_1 gfield_product_'.$field['formId'].'_'.$field['id'].'_1' : '';
-            $html .= "<input id='input_{$field["formId"]}_{$field["id"]}_1' name='input_{$field["id"]}_1' type='text' value='".esc_attr($amount)."' class='ginput_bb ginput_click_array_other ".$other_class." ".$field['size']."' onblur='$onblur' $tabindex $onkeyup $disabled_text>";
+            $html .= "<input id='input_{$field["formId"]}_{$field["id"]}_1' name='input_{$field["id"]}_1' type='text' value='".esc_attr(GFCommon::to_money($amount))."' class='ginput_bb ginput_click_array_other ".$other_class." ".$field['size']."' onblur='$onblur' $tabindex $onkeyup $disabled_text>";
 
             $html .= "<input id='input_{$field["formId"]}_{$field["id"]}_5' name='input_{$field["id"]}_5' type='hidden' value='".esc_attr($clicked)."' class='ginput_bb ginput_click_array_clicked'>";
         }
