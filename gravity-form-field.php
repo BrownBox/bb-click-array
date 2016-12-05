@@ -40,7 +40,7 @@ function bb_click_array_field_input($input, $field, $value, $lead_id, $form_id) 
             $clicked = rgget($field["id"].".5", $value);
         }
 
-        $html = "<div id='$field_id' class='ginput_container bb-click-array-".count($field['choices'])." ".esc_attr($css)."'>"."\n";
+        $html = "<div data-equalizer data-equalize-on='medium' id='$field_id' class='ginput_container bb-click-array-".count($field['choices'])." ".esc_attr($css)."'>"."\n";
 
         if (is_array($field["choices"])) {
             $choice_id = 0;
@@ -67,7 +67,7 @@ function bb_click_array_field_input($input, $field, $value, $lead_id, $form_id) 
 
                 $value_style = empty($choice["text"]) ? ' style="margin-top: 1.5rem;"' : '';
 
-                $html .= sprintf('<div data-clickarray-value="%s" data-choice-id="%s" class="s-html-wrapper %s" id="%s">', esc_attr($field_value), $choice_id, $field_class, $id);
+                $html .= sprintf('<div data-equalizer-watch data-clickarray-value="%s" data-choice-id="%s" class="s-html-wrapper %s" id="%s">', esc_attr($field_value), $choice_id, $field_class, $id);
                 $html .= sprintf('<div class="s-html-value"%s>%s</div>', $value_style, $field_value);
                 $html .= sprintf("<label for='choice_%s' id='label_%s'>%s</label>", $id, $id, $choice["text"]);
                 $html .= '</div>';
