@@ -100,7 +100,7 @@ function bb_click_array_field_gform_editor_js() {
 <script type='text/javascript'>
 
 jQuery(document).ready(function($) {
-    fieldSettings["bb_click_array"] = ".label_setting, .description_setting, .rules_setting, .admin_label_setting, .choices_setting, .other_choice_setting, .size_setting, .error_message_setting, .css_class_setting, .visibility_setting, .bb_click_array_setting, .bb_click_array_other_setting, .bb_click_array_is_product_setting, .conditional_logic_field_setting";
+    fieldSettings["bb_click_array"] = ".label_setting, .description_setting, .rules_setting, .admin_label_setting, .choices_setting, .other_choice_setting, .size_setting, .error_message_setting, .css_class_setting, .visibility_setting, .bb_click_array_setting, .bb_click_array_other_setting, .bb_click_array_is_product_setting, .conditional_logic_field_setting, .prepopulate_field_setting";
 
     //binding to the load field settings event to initialize the checkbox
     $(document).bind("gform_load_field_settings", function(event, field, form){
