@@ -18,8 +18,9 @@ function bb_click_array_add_field($field_groups) {
 // Adds title to GF custom field
 add_filter('gform_field_type_title', 'bb_click_array_field_title', 5, 2);
 function bb_click_array_field_title($title, $field_type) {
-    if ($field_type == 'bb_click_array')
+    if ($field_type == 'bb_click_array') {
         return __('Click Array', 'bb_click_array');
+    }
     return $title;
 }
 
@@ -81,8 +82,11 @@ function bb_click_array_field_input($input, $field, $value, $lead_id, $form_id) 
             $other_class = rgar($field, 'enableOtherChoice') ? '' : 'hide';
 
             $html .= "<label for='input_{$field["formId"]}_{$field["id"]}_1' class='ginput_bb_click_array_other_label ".$other_class."'>".$other_label."</label>";
-            $other_class .= rgar($field, 'field_bb_click_array_is_product') ? ' ginput_amount gfield_price gfield_price_'.$field['formId'].'_'.$field['id'].'_1 gfield_product_'.$field['formId'].'_'.$field['id'].'_1' : '';
-            $html .= "<input id='input_{$field["formId"]}_{$field["id"]}_1' name='input_{$field["id"]}_1' type='text' value='".esc_attr(GFCommon::to_money($amount))."' class='ginput_bb ginput_click_array_other ".$other_class." ".$field['size']."' onblur='$onblur' $tabindex $onkeyup $disabled_text>";
+            if (rgar($field, 'field_bb_click_array_is_product')) {
+                $other_class .= ' ginput_amount gfield_price gfield_price_'.$field['formId'].'_'.$field['id'].'_1 gfield_product_'.$field['formId'].'_'.$field['id'].'_1';
+                $amount = str_replace('.00', '', GFCommon::to_money($amount));
+            }
+            $html .= "<input id='input_{$field["formId"]}_{$field["id"]}_1' name='input_{$field["id"]}_1' type='text' value='".esc_attr($amount)."' class='ginput_bb ginput_click_array_other ".$other_class." ".$field['size']."' onblur='$onblur' $tabindex $onkeyup $disabled_text>";
 
             $html .= "<input id='input_{$field["formId"]}_{$field["id"]}_5' name='input_{$field["id"]}_5' type='hidden' value='".esc_attr($clicked)."' class='ginput_bb ginput_click_array_clicked'>";
         }
