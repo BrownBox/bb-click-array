@@ -11,7 +11,9 @@ jQuery(document).ready(function() {
 	    var currency = new Currency(gf_global.gf_currency_config);
 		jQuery(this).siblings('input[type="hidden"]').val('');
 		var userValue = jQuery(this).val();
-		jQuery(this).val(currency.toMoney(userValue).replace(".00", ""));
+        if (jQuery(this).hasClass('gfield_price')) {
+            jQuery(this).val(currency.toMoney(userValue).replace('.00', ''));
+        }
 		jQuery(this).siblings('.gform_bb.gfield_click_array div.s-html-wrapper').each(function() {
 			var thisValue = jQuery(this).attr('data-clickarray-value');
 			if (thisValue == userValue || (jQuery(this).hasClass('s-currency') && currency.toNumber(thisValue) == currency.toNumber(userValue))) {

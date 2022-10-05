@@ -27,18 +27,21 @@ function bb_click_array_field_title($title, $field_type) {
 // Adds the input area to the external side
 add_action("gform_field_input", "bb_click_array_field_input", 10, 5);
 function bb_click_array_field_input($input, $field, $value, $lead_id, $form_id) {
-    if ($field["type"] == "bb_click_array") {
+	if ($field["type"] == "bb_click_array") {
+		$id = $field->id;
         $field_id = IS_ADMIN || $form_id == 0 ? "input_$id" : "input_".$form_id."_$id";
 
-        $input_name = $form_id.'_'.$field["id"];
         $css = isset($field['cssClass']) ? $field['cssClass'] : "";
         $disabled_text = (IS_ADMIN && RG_CURRENT_VIEW != "entry") ? "disabled='disabled'" : "";
 
         $amount = '';
         $clicked = '';
-        if (is_array($value)) {
+        if (rgpost($field_id.'_1') && is_array($value)) {
             $amount = esc_attr(rgget($field["id"].".1", $value));
             $clicked = rgget($field["id"].".5", $value);
+        }
+        if (rgblank($amount) && $field->allowsPrepopulate) {
+        	$amount = GFFormsModel::get_parameter_value($field->inputName, $value, $field);
         }
 
         $html = "<div data-equalizer data-equalize-on='medium' id='$field_id' class='ginput_container bb-click-array-".count($field['choices'])." ".esc_attr($css)."'>"."\n";
@@ -75,9 +78,11 @@ function bb_click_array_field_input($input, $field, $value, $lead_id, $form_id) 
                 $choice_id++;
             }
 
-            $onblur = !IS_ADMIN ? 'if(jQuery(this).val().replace(" ", "") == "") { jQuery(this).val("'.$other_default_value.'"); }' : '';
+            if (rgar($field, 'field_bb_click_array_is_product')) {
+            	$amount = GFCommon::to_money($amount);
+            }
+            $onblur = !IS_ADMIN ? 'if(jQuery(this).val().replace(" ", "") == "") { jQuery(this).val("'.$amount.'"); jQuery(this).trigger("keyup"); }' : '';
             $onkeyup = (empty($field["conditionalLogicFields"]) || IS_ADMIN) ? '' : "onchange='gf_apply_rules(".$field["formId"].",".GFCommon::json_encode($field["conditionalLogicFields"]).");' onkeyup='clearTimeout(__gf_timeout_handle); __gf_timeout_handle = setTimeout(\"gf_apply_rules(".$field["formId"].",".GFCommon::json_encode($field["conditionalLogicFields"]).")\", 300);'";
-            $value_exists = RGFormsModel::choices_value_match($field, $field["choices"], $value);
             $other_label = empty($field['field_bb_click_array_other_label']) ? 'My Best Gift' : $field['field_bb_click_array_other_label'];
             $other_class = rgar($field, 'enableOtherChoice') ? '' : 'hide';
 
@@ -232,11 +237,6 @@ function bb_click_array_field_entry_output($value, $field, $lead, $form) {
     }
     return $value;
 }
-
-add_filter( 'gform_entries_field_header', function ( $header, $form, $field ) {
-
-    return 'your new header';
-}, 10, 3 );
 
 add_filter('gform_field_validation', 'bb_click_array_field_validation', 1, 4);
 function bb_click_array_field_validation($result, $value, $form, $field) {
